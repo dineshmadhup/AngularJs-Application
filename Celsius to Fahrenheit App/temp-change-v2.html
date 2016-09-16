@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js">
+</script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <style>
+      body  {
+        background-image:url("thermometer2.jpg"); 
+        background-color: #cccccc;
+      }
+</style>
+</head>
+
+<body>
+<div ng-app="" ng-controller="temperatureController">
+<h2 align="center">Celsius to Fahrenheit converter</h2>
+<div class="container">
+<form role="form">
+        <div class="row">
+            <div class="form-group">
+                <label for="code">Celsuis</label>
+                <input type="text" class="form-control input-lg" ng-model="CValue" ng-change="Conversion('C')">
+            </div>
+        </div>
+
+        <div class="row">
+           <label for="code">Fahernheit</label>
+            <input type="text" class="form-control input-lg" ng-model="FValue" ng-change="Conversion('F')">
+        </div>
+    </form>
+</div>
+</div>
+
+    
+<script>
+function temperatureController($scope) {
+    /*
+    $scope.handle = '';
+    
+    $scope.Conversion = function(which) {
+        $scope.handle = which;
+    };
+    
+    
+    $scope.$watch('FValue', function(value) {
+        
+            $scope.CValue = Math.round((value - 32) * 5.0/9.0);
+    });
+  
+    $scope.$watch('CValue', function(value) {
+       
+            $scope.FValue = Math.round(value * 9.0 / 5.0 + 32);
+    });
+    */
+    
+    $scope.Conversion = function(value) {
+        if(value == 'F'){
+            $scope.CValue = Math.round(($scope.FValue - 32) * 5.0/9.0);
+        } else {
+            $scope.FValue = Math.round($scope.CValue * 9.0 / 5.0 + 32);
+        }
+    };
+    
+    
+  
+}
+</script> 
+
+</body>
+</html>
