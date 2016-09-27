@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <title>Weekly Task Tracker</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta charset="UTF-8">
+
+    <!-- load bootstrap and fontawesome via CDN -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <!-- load angular via CDN -->
+<script src="//code.angularjs.org/1.3.0-rc.1/angular.min.js"></script>
+<script src="app.js"></script>
+
+    <style>
+        html, body, input, select, textarea {
+            font-size: 1.05em;
+        }
+    </style>
+
+</head>
+
+<body>
+<header>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">AngularJs</a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><i class="fa fa-home"></i>Home</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="jumbotron text-center">
+        <h2>To Do List using custom service in AngularJs</h2>
+    </div>
+    <div ng-controller = "TaskAddController as taskAdder">
+        <input type="text" ng-model="taskAdder.taskName" placeholder="Enter task name">
+        <button ng-click="taskAdder.addTask();">Add your task</button>
+    </div>
+    
+    <div ng-controller = "TaskShowController as taskShow">
+        <ol>
+            <li ng-repeat = "mytask in taskShow.weeklyTasks">
+                {{mytask.name}} 
+                <button ng-click="taskShow.removeTask($index);">Mark Complete</button>
+            </li>
+        </ol>
+    </div>
+</div>
+
+
+</body>
+</html>
