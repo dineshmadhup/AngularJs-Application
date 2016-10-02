@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html ng-app='NarrowItDownApp'>
+  <head>
+    <title>Narrow It Down App</title>
+    <meta charset="utf-8">
+       <!-- load bootstrap -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" href="styles.css">
+    
+  </head>
+  <body>
+
+    <div class="container" ng-controller='NarrowItDownController as NarrowDown'>
+      <h1>Narrow Down Your Chinese Menu Choice</h1>
+        <div class="form-group">
+            <input type="text" placeholder="search term" class="form-control">
+        </div>
+         <div class="form-group narrow-button">
+             <button class="btn btn-primary" ng-click="NarrowDown.search();">Narrow It Down For Me!</button>
+        </div>
+        
+   
+        <div found-items></div>
+    </div>
+
+
+     <script src="angular.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
