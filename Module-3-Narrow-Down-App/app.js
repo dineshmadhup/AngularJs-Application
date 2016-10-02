@@ -3,40 +3,59 @@
 
 angular.module('NarrowItDownApp', [])
 .controller('NarrowItDownController', NarrowItDownController)
-.constant('ApiBasePath', "https://davids-restaurant.herokuapp.com")
 .service('MenuSearchService', MenuSearchService)
-.directive('foundItems', FoundItems);
+.directive('foundItems', FoundItemsDirective)
+.constant('ApiBasePath', "https://davids-restaurant.herokuapp.com");
 
 
-function FoundItems() {
+function FoundItemsDirective() {
   var ddo = {
-    templateUrl: 'foundList.html',
+    templateUrl: 'foundItems.html',
     scope: {
       found: '<',
       onRemove: '&'
     },
+    controller: FoundItemsDirectiveController,
+    controllerAs: 'list',
+    bindToController: true
+      
   };
 
   return ddo;
 }
+    
+function FoundItemsDirectiveController() {
+  var NarrowList = this;
+
+  NarrowList.itemsInList = function () {
+    for (var i = 0; i < NarrowList.items.length; i++) {
+      var name = NarrowList.items[i].name;
+      if (name.toLowerCase().indexOf("") !== -1) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+}
 
 NarrowItDownController.$inject = ['MenuSearchService'];
 function NarrowItDownController(MenuSearchService) {
-  var list = this;
+  var NarrowList = this;
 
-  list.showItems = function() {
-    if (!list.searchTerm) {
-      list.found = [];
+  NarrowList.searchItems = function() {
+    if (!NarrowList.searchTerm) {
+      NarrowList.found = [];
       return;
     }
-    var promise = MenuSearchService.getMatchedMenuItems(list.searchTerm);
+    var promise = MenuSearchService.getMatchedMenuItems(NarrowList.searchTerm);
     promise.then(function (response) {
-      list.found = response;
+      NarrowList.found = response;
     })
   }
 
-  list.removeItem = function(index) {
-    list.found.splice(index, 1);
+  NarrowList.removeItem = function(index) {
+    NarrowList.found.splice(index, 1);
   }
 }
 
@@ -47,12 +66,11 @@ function MenuSearchService($http, ApiBasePath) {
     return $http({
       method: "GET",
       url: (ApiBasePath + "/menu_items.json")
-    })
-        .then(function (response) {
-      var foundItems = response.data.menu_items;
-//      .filter(function(item) {
-//        return item.description.indexOf(searchTerm) !== -1;
-//      });
+    }).then(function (response) {
+        var foundItems = response.data.menu_items
+        .filter(function(item) {
+        return item.description.indexOf(searchTerm) !== -1;
+      });
       return foundItems;
     });
   };
