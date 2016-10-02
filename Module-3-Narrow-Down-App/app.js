@@ -3,65 +3,60 @@
 
 angular.module('NarrowItDownApp', [])
 .controller('NarrowItDownController', NarrowItDownController)
+.constant('ApiBasePath', "https://davids-restaurant.herokuapp.com")
 .service('MenuSearchService', MenuSearchService)
-.directive('foundItems', foundItemsDirective)
-.constant('ApiBasePath', "http://davids-restaurant.herokuapp.com");
-    
-    function foundItemsDirective() {
-        var ddo = {
-            templateUrl: 'foundItems.html',
-            scope: {
-                found: '<',
-                onRemove: '&'
-            },
-            controller: foundItemsDirectiveController,
-            controllerAs: 'list',
-            bindToController: true         
-        };
-        return ddo;
-    }
-    
-    function foundItemsDirectiveController() {
-        var foundItemsList = this;
-        
-        
-    }
-    
-    
+.directive('foundItems', FoundItems);
 
+
+function FoundItems() {
+  var ddo = {
+    templateUrl: 'foundList.html',
+    scope: {
+      found: '<',
+      onRemove: '&'
+    },
+  };
+
+  return ddo;
+}
 
 NarrowItDownController.$inject = ['MenuSearchService'];
 function NarrowItDownController(MenuSearchService) {
-  var menu = this;
-    
-    menu.search = function () {
+  var list = this;
 
-  var promise = MenuSearchService.getMatchedMenuItems();
+  list.showItems = function() {
+    if (!list.searchTerm) {
+      list.found = [];
+      return;
+    }
+    var promise = MenuSearchService.getMatchedMenuItems(list.searchTerm);
+    promise.then(function (response) {
+      list.found = response;
+    })
+  }
 
-  promise.then(function (response) {
-    menu.categories = response.data;
-  })
-  .catch(function (error) {
-    console.log("Something went terribly wrong.");
-  });
-
+  list.removeItem = function(index) {
+    list.found.splice(index, 1);
+  }
 }
-}
 
-
-MenuSearchService.$inject = ['$http', 'ApiBasePath'];
+MenuSearchService.$inject = ['$http', 'ApiBasePath']
 function MenuSearchService($http, ApiBasePath) {
   var service = this;
-
-  service.getMatchedMenuItems = function () {
-    var response = $http({
+  service.getMatchedMenuItems = function (searchTerm) {
+    return $http({
       method: "GET",
-      url: (ApiBasePath + "/categories.json")
+      url: (ApiBasePath + "/menu_items.json")
+    })
+        .then(function (response) {
+      var foundItems = response.data.menu_items;
+//      .filter(function(item) {
+//        return item.description.indexOf(searchTerm) !== -1;
+//      });
+      return foundItems;
     });
-
-    return response;
   };
-
 }
 
 })();
+
