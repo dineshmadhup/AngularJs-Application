@@ -2,8 +2,8 @@
     <li ng-repeat="item in NarrowList.found">
         <h3>Item Name: {{ item.name }}</h3>
         <h4>Description: {{ item.description }}</h4>
-        <h5>price: Small: ${{ item.price_small}}, Large: ${{item.price_large}}</h5>
-        <button ng-click="NarrowList.onRemove({index: $index});" class="btn btn-primary" >Don't want this one!</button>
+        <h5>price: Small: ${{ item.price_small}} | Large: ${{item.price_large}}</h5>
+        <button ng-click="NarrowList.onRemove({index: $index});" class="btn btn-primary">Don't want this one!</button>
     </li>
 </ol>
 <div class="error" ng-if="NarrowList.itemsInList()">WARNING! WARNING! ITEMS NOT FOUND!</div>
