@@ -28,17 +28,15 @@
 			})
             /* Items-Detail*/
 			.state('mainList.itemDetail', {
-				//url: '/item-detail/{itemId}',
+				url: '/item-detail/{itemId}',
 				templateUrl: 'src/app/templates/items.template.html',
 				controller: 'ItemsController as itemDetail',
-//				resolve: {
-//					items: ['$stateParams', 'MenuDataService', function ($stateParams, MenuDataService) {
-//						return MenuDataService.getItemsForCategory($stateParams.itemId);
-//					}]
-//				}
-            params: {
-                itemId: null
-            }
+				resolve: {
+					items: ['$stateParams', 'MenuDataService', function ($stateParams, MenuDataService) {
+						return MenuDataService.getItemsForCategory($stateParams.itemId);
+					}]
+				}
+            
 			});
 	}
 })();
