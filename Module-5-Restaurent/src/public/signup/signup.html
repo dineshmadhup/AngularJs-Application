@@ -1,0 +1,61 @@
+
+<div class="container">
+  <h2>Sign Up for Newsletter</h2>
+    <hr><br>
+    
+  <form class="form-horizontal" name="myForm">
+      <div class="form-group">
+      <label class="control-label col-sm-2" for="firstName">First Name:</label>
+      <div class="col-xs-12 col-md-8 col-sm-6">
+        <input type="text" class="form-control" name="firstName" id="firstName" ng-model="firstName" placeholder="Enter First Name" required>
+        <span style="color:yellow" ng-show="myForm.firstName.$dirty && myForm.firstName.$invalid || myForm.firstName.$touched">
+        <span ng-show="myForm.firstName.$error.required">First name is required.</span
+        </span>
+      </div>
+      </div>
+      
+      <div class="form-group">
+      <label class="control-label col-sm-2" for="lastName">Last Name:</label>
+      <div class="col-xs-12 col-md-8 col-sm-6">
+        <input type="text" class="form-control" name="lastName" id="lastName" ng-model="lastName" placeholder="Enter Last Name" required>
+        <span style="color:yellow" ng-show="myForm.lastName.$dirty && myForm.lastName.$invalid || myForm.lastName.$touched">
+        <span ng-show="myForm.lastName.$error.required">Last name is required.</span
+        </span>
+      </div>
+      </div>
+      
+      <div class="form-group">
+      <label class="control-label col-sm-2" for="email">Email Address:</label>
+      <div class="col-xs-12 col-md-8 col-sm-6">
+        <input type="email" class="form-control" name="email" id="email" ng-model="email" placeholder="Enter Email Address" required>
+        <span style="color:yellow" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+        <span ng-show="myForm.email.$error.required">Email is required.</span>
+        <span ng-show="myForm.email.$error.email">Invalid email address.</span>
+        </span>
+      </div>
+      </div>
+          
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="phone">Phone Number:</label>
+      <div class="col-xs-12 col-md-8 col-sm-6">
+        <input type="text" class="form-control" name="phone" id="phone" ng-model="phone" placeholder="Enter Phone Number" required>
+        <span style="color:yellow" ng-show="myForm.phone.$dirty && myForm.phone.$invalid || myForm.phone.$touched">
+        <span ng-show="myForm.phone.$error.required">Phone number is required.</span
+        </span>
+      </div>
+      </div>
+          
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="favoriteDish">Your Favorite Dish:</label>
+      <div class="col-xs-12 col-md-8 col-sm-6">
+        <input type="text" class="form-control" name="favoriteDish" id="favoriteDish" ng-model="favoriteDish" placeholder="Enter menu number of your favorite dish">
+      </div>
+      </div>
+          
+      
+        <button type="submit" class="btn btn-default"
+                ng-disabled="myForm.firstName.$dirty && myForm.firstName.$invalid || myForm.lastName.$dirty && myForm.lastName.$invalid || myForm.email.$dirty && myForm.email.$invalid || myForm.phone.$dirty && myForm.phone.$invalid">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
